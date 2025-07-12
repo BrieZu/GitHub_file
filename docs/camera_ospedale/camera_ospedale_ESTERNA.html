@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oggetti nella camera d'ospedale</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
+        .container { position: relative; display: inline-block; }
+        img { max-width: 100%; height: auto; display: block; }
+        .hotspot {
+            position: absolute;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .tooltip {
+            display: none;
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            pointer-events: none;
+            max-width: 180px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Vocabolario: camera d'ospedale</h2>
+    <p>Tocca/clicca sugli oggetti per vedere il nome ITA–ENG</p>
+
+    <div class="container">
+        <img src="hospital-room.jpg" alt="Camera d'ospedale">
+        
+        <div class="hotspot" style="top: 38%; left: 15%; width: 12%; height: 20%;" data-label="Asta porta flebo – IV pole / drip stand"></div>
+        <div class="hotspot" style="top: 33%; left: 45%; width: 14%; height: 18%;" data-label="Monitor parametri vitali – Vital signs monitor"></div>
+        <div class="hotspot" style="top: 55%; left: 25%; width: 12%; height: 10%;" data-label="Pompa per infusione – Infusion pump"></div>
+        <div class="hotspot" style="top: 50%; left: 38%; width: 10%; height: 10%;" data-label="Deflussore (tubo flebo) – IV tubing"></div>
+        <div class="hotspot" style="top: 10%; left: 60%; width: 8%; height: 10%;" data-label="Presa di ossigeno – Oxygen outlet"></div>
+        <div class="hotspot" style="top: 15%; left: 65%; width: 8%; height: 10%;" data-label="Maschera per ossigeno – Oxygen mask"></div>
+        <div class="hotspot" style="top: 5%; left: 40%; width: 20%; height: 10%;" data-label="Lampada a LED per corsia – Hospital ceiling LED light"></div>
+        <div class="hotspot" style="top: 70%; left: 50%; width: 10%; height: 10%;" data-label="Controllo letto elettrico – Bed control panel"></div>
+        <div class="hotspot" style="top: 80%; left: 30%; width: 10%; height: 10%;" data-label="Campanello – Nurse call button"></div>
+
+        <div id="tooltip" class="tooltip"></div>
+    </div>
+
+    <script>
+        const hotspots = document.querySelectorAll('.hotspot');
+        const tooltip = document.getElementById('tooltip');
+
+        hotspots.forEach(h => {
+            h.addEventListener('click', e => {
+                tooltip.textContent = h.getAttribute('data-label');
+                tooltip.style.display = 'block';
+                tooltip.style.left = e.clientX + 'px';
+                tooltip.style.top = e.clientY + 'px';
+            });
+        });
+
+        document.addEventListener('click', e => {
+            if(!e.target.classList.contains('hotspot')){
+                tooltip.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
