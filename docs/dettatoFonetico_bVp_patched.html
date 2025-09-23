@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>H5P Dictation Patched</title>
+</head>
+<body>
+  <p>Questo è un placeholder del file HTML patchato. Apri l'originale e sostituisci qui il contenuto con la versione completa.</p>
+
+  <script>
+  // Patch per rendere case-insensitive H5P.Dictation
+  (function() {
+    if (window.H5P && H5P.Dictation && H5P.Dictation.prototype.computeResults) {
+      const orig = H5P.Dictation.prototype.computeResults;
+      H5P.Dictation.prototype.computeResults = function() {
+        const origGetCorrectText = this.getCorrectText;
+        const origGetUserInput = this.getUserInput;
+        this.getCorrectText = function() {
+          return origGetCorrectText.call(this).toLowerCase();
+        };
+        this.getUserInput = function() {
+          return origGetUserInput.call(this).toLowerCase();
+        };
+        const res = orig.call(this);
+        this.getCorrectText = origGetCorrectText;
+        this.getUserInput = origGetUserInput;
+        return res;
+      };
+    }
+  })();
+  </script>
+</body>
+</html>
